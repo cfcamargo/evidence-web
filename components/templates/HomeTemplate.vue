@@ -1,10 +1,8 @@
 <template>
   <AppLayout>
-    <Banner>
-      <Container>
-
-      </Container>
-    </Banner>
+    <Banner />
+    <SearchCategory />
+    <MostSearchProducts />
   </AppLayout>
 </template>
 
