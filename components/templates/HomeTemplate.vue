@@ -2,15 +2,27 @@
   <AppLayout>
     <Banner />
     <SearchCategory />
-    <MostSearchProducts />
+    <ProductsCardSlider :products="products"/>
   </AppLayout>
 </template>
 
 <script setup lang="ts">
+import AppLayout from '@/layouts/AppLayout.vue';
+import Product from 'models/Product';
 
-import AppLayout from "~/layouts/AppLayout.vue";
+const products: Product[] = [
+  {
+    brand : "",
+    category : "",
+    cover : "",
+    description : "",
+    id: 1,
+    name : "",
+    price : 0,
+    quantity : 0,
+    rating : 0,
+    systemId : 1,
+  }
+]
+
 </script>
-
-<style scoped>
-
-</style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-[calc(100vh_+_200px)] bg-gray-primary pt-[80px]">
+    <div class="w-full h-[calc(100vh_+_200px)] bg-gray-primary pt-[80px] z-10">
         <Container>
             <div class="w-full h-ful">
                 <Swiper
@@ -27,7 +27,7 @@
                                 <div class="flex flex-col gap-4">
                                     <h1 class="text-8xl font-bold text-red-primary">Sofás e <br/>Colchões</h1>
                                     <p class="text-gray-950">Conforto sem igual, do descanso à decoração! Seja em colchões ou sofás,<br/> somos a referência que você procura!</p>
-                                    <butoton class="px-8 py-2 bg-red-primary w-52 text-white rounded flex items-center justify-center hover:opacity-90">Comprar</butoton>
+                                    <button class="px-8 py-2 bg-red-primary w-52 text-white rounded flex items-center justify-center hover:opacity-90">Comprar</button>
                                 </div>
 
                                 <img src="/images/sofa.png" alt="">

@@ -1,7 +1,7 @@
 <template>
     <header class="fixed top-0 left-0 right-0">
       <Container>
-        <div class="w-full flex justify-between items-center h-[80px] px-2">
+        <div class="w-full flex justify-between items-center h-[80px] px-2 fixed top-0 z-50 bg-gray-primary">
           <NuxtLink to="/">
             <Logo />
           </NuxtLink>

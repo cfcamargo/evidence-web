@@ -29,5 +29,16 @@
 </template>
 
 <script setup lang="ts">
+import Product from '@/models/Product'
+
+const props = defineProps<{
+    products: Product[]
+}>()
+
+const { products } = props
+
+onMounted(() => {
+    console.log(products)
+})
 
 </script>
