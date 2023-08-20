@@ -30,7 +30,11 @@
                                     <button class="px-8 py-2 bg-red-primary w-52 text-white rounded flex items-center justify-center hover:opacity-90">Comprar</button>
                                 </div>
 
-                                <img src="/images/sofa.png" alt="">
+
+                                <nuxt-img
+                                    src="/images/sofa.png"
+                                    layout="fill"
+                                />
                             </div>
                         </div>
                     </SwiperSlide>

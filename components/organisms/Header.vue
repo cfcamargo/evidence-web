@@ -1,7 +1,7 @@
 <template>
-    <header class="fixed top-0 left-0 right-0">
+    <header class="w-full sticky top-0 left-0 right-0 z-50 bg-gray-primary">
       <Container>
-        <div class="w-full flex justify-between items-center h-[80px] px-2 fixed top-0 z-50 bg-gray-primary">
+        <div class="w-full flex justify-between items-center h-[80px] px-2">
           <NuxtLink to="/">
             <Logo />
           </NuxtLink>
@@ -11,9 +11,10 @@
             <NuxtLink to="/shop">Loja</NuxtLink>
             <NuxtLink to="/about">Sobre</NuxtLink>
             <NuxtLink to="/contact">Contato</NuxtLink>
+            <Search />
           </nav>
 
-          <div class="flex gap-2 items-center">
+          <div class="xs:flex gap-2 items-center md:hidden">
             <Search />
             <button @click="toogleMenuHamburguer" class="md:hidden">
               <Menu :size="30"/>

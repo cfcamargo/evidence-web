@@ -1,8 +1,11 @@
 <template>
     <NuxtLink to="/shop/1">
-        <div class="w-full h-[400px] shadow rounded-md">
+        <div class="w-full h-[400px] shadow rounded-md overflow-hidden transform hover:scale-105">
             <div class="w-full h-[300px] bg-gray-primary p-4 flex justify-center items-center">
-                <img src="/images/poltrona.png" alt="" class="object-cover w-[80%]">
+                <nuxt-img
+                    src="/images/poltrona.png"
+                    layout="fill"
+                />
             </div>
             <div class="h-[100px] w-full px-4 flex flex-col justify-center py-2">
                 <h4 class="font-semibold text-lg text-red-primary">Poltrona do papai</h4>
