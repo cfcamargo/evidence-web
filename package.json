@@ -14,12 +14,15 @@
     "@types/node": "^18.17.3",
     "autoprefixer": "^10.4.15",
     "nuxt": "^3.6.5",
+    "nuxt-quasar-ui": "^2.0.5",
     "postcss": "^8.4.28",
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
+    "@quasar/extras": "^1.16.5",
     "animate.css": "^4.1.1",
     "lucide-vue-next": "^0.268.0",
-    "nuxt-swiper": "^1.2.0"
+    "nuxt-swiper": "^1.2.0",
+    "quasar": "^2.12.5"
   }
 }

@@ -1,8 +1,6 @@
 <template>
     <AppLayout>
-        <Container>
-            {{ productID }}
-        </Container>
+        <ProductShowTemplate />
     </AppLayout>
 </template>
 

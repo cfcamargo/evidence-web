@@ -32,11 +32,12 @@
 
 <script setup lang="ts">
 
-const props = defineProps({
-  icon_width : {
-    type : Number,
-    default : 200
-  }
+interface LogoProps {
+  icon_width? : number
+}
+
+const props = withDefaults(defineProps<LogoProps>(), {
+  icon_width: 200
 })
 
 </script>

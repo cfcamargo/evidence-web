@@ -2,8 +2,7 @@
     <Container>
         <div class="py-32 flex flex-col gap-20">
             <div class="mx-auto flex flex-col gap-2 items-center justify-center">
-                <h4 class="text-4xl font-bold text-red-primary">Itens Mais Buscados</h4>
-                <div class="w-[100px] h-2 rounded bg-red-primary"/>
+                <SectionTitle :text="props.title" />
             </div>
             <div class="w-full">
                 <Swiper
@@ -32,7 +31,8 @@
 import Product from '@/models/Product'
 
 const props = defineProps<{
-    products: Product[]
+    products: Product[],
+    title : string
 }>()
 
 const { products } = props

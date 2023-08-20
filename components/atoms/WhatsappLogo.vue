@@ -5,8 +5,8 @@
 <script setup lang="ts">
 
 interface IconProps {
-    width : number,
-    height : number,
+    width? : number,
+    height? : number,
     color? : string,
 }
 

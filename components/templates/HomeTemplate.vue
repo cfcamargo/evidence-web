@@ -2,7 +2,7 @@
   <AppLayout>
     <Banner />
     <SearchCategory />
-    <ProductsCardSlider :products="products"/>
+    <ProductsCardSlider :products="products" title="Itens mais buscados"/>
   </AppLayout>
 </template>
 
