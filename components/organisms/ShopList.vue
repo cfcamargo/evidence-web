@@ -16,8 +16,8 @@
             <Container>
                 <div class="flex flex-col gap-4 justify-center items-center">
                     <div class="w-full grid grid-cols-4 gap-8">
-                        <div v-for="product in 20" :key="product">
-                            <ProductCard />
+                        <div v-for="product in props.totalPerPage" :key="product">
+                            <ProductCard product="product"/>
                         </div>
                     </div>
                     <div class="py-10">
@@ -41,12 +41,22 @@
 </template>
 
 <script setup lang="ts">
+const props = withDefaults(defineProps<{
+    totalPerPage: number
+}>(), {
+    totalPerPage: 20
+})
+
 const current = ref(1)
 
 function changePage(page: number){
     console.log(page)
     current.value = page
 }
+
+
+
+
 
 
 </script>

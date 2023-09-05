@@ -23,6 +23,7 @@
     "animate.css": "^4.1.1",
     "lucide-vue-next": "^0.268.0",
     "nuxt-swiper": "^1.2.0",
-    "quasar": "^2.12.5"
+    "quasar": "^2.12.5",
+    "zod": "^3.22.2"
   }
 }

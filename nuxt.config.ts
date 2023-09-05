@@ -10,5 +10,5 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules:["nuxt-swiper", '@nuxt/image', 'nuxt-quasar-ui']
+  modules:["nuxt-swiper", '@nuxt/image', 'nuxt-quasar-ui'],
 })

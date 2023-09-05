@@ -9,7 +9,6 @@
                 />
             </div>
 
-
             <div class="w-full h-full py-2 flex flex-col gap-10">
                 <div>
                     <h4 class="font-bold text-2xl text-red-primary leading-relaxed">Poltrona do papai</h4>
@@ -38,9 +37,7 @@
             </div>
 
         </div>
-
         <ProductsCardSlider :products="products" title="Produtos Relacionados"/>
-
     </Container>
 
 

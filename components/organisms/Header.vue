@@ -1,37 +1,74 @@
 <template>
     <header class="w-full sticky top-0 left-0 right-0 z-50 bg-gray-primary">
       <Container>
-        <div class="w-full flex justify-between items-center h-[80px] px-2">
+        <div class="w-full flex h-[80px] items-center gap-20 px-2">
           <NuxtLink to="/">
-            <Logo />
+            <Logo icon_width="250"/>
           </NuxtLink>
-
-          <nav class="xs:hidden md:flex gap-8 uppercase">
-            <NuxtLink to="/">Home</NuxtLink>
-            <NuxtLink to="/shop">Loja</NuxtLink>
-            <NuxtLink to="/about">Sobre</NuxtLink>
-            <NuxtLink to="/contact">Contato</NuxtLink>
-            <Search />
-          </nav>
-
-          <div class="xs:flex gap-2 items-center md:hidden">
-            <Search />
-            <button @click="toogleMenuHamburguer" class="md:hidden">
-              <Menu :size="30"/>
-            </button>
-            <HamburguerMenu :show="hamburguerShow" @toogleMenuHamburguer="toogleMenuHamburguer"/>
-          </div>
+          <SearchBar />
+          <ContactButton />
         </div>
       </Container>
+      <nav class="w-full bg-red-primary h-10 relative flex items-center">
+        <Container class="flex gap-6 justify-center items-center">
+          <button class="flex gap-4 items-center" @click="toogleSubmenuDropDown">
+            <Menu :size="20" color="white" />
+            <span class="text-white">
+              Mais Produtos
+            </span>
+          </button>
+
+          <button class="flex gap-4 items-center">
+            <span class="text-white">
+              Sala de estar
+            </span>
+          </button>
+
+          <button class="flex gap-4 items-center">
+            <span class="text-white">
+              Sala de Jantar
+            </span>
+          </button>
+
+          <button class="flex gap-4 items-center">
+            <span class="text-white">
+              Cozinha
+            </span>
+          </button>
+
+          <button class="flex gap-4 items-center">
+            <span class="text-white">
+              Quarto
+            </span>
+          </button>
+
+          <button class="flex gap-4 items-center">
+            <span class="text-white">
+              Escritório
+            </span>
+          </button>
+        </Container>
+
+        <transition enter-active-class="animate__animated animate__fadeInDown" leave-active-class="animate__animated animate__fadeOutUp">
+          <div class="w-full absolute top-10 left-0 right-0 h-20 bg-red-500" v-if="showProductsDropDown">
+            <Container class="px-4">
+              <DropDownNavFilter />
+            </Container>
+          </div>
+        </transition>
+      </nav>
     </header>
+
 </template>
 
 <script setup lang="ts">
 import { Menu } from "lucide-vue-next";
 
-const hamburguerShow = ref(false)
+const showProductsDropDown = ref(true)
 
-function toogleMenuHamburguer(){
-  hamburguerShow.value = !hamburguerShow.value
+function toogleSubmenuDropDown(){
+  showProductsDropDown.value = !showProductsDropDown.value
 }
+
+
 </script>
