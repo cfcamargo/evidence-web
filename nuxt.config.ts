@@ -11,4 +11,11 @@ export default defineNuxtConfig({
     },
   },
   modules:["nuxt-swiper", '@nuxt/image', 'nuxt-quasar-ui'],
+  app: {
+    head: {
+      title: 'Evidence Moveis',
+      charset : 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+    }
+  }
 })
