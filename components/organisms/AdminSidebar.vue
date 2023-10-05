@@ -12,12 +12,16 @@
         <Tag size="15"/>
         <span>Etiquetas</span>
       </NuxtLink>
+      <NuxtLink to="/Admin/tags" class="flex items-center gap-2 w-full rounded border border-gray-300 py-2 justify-center text-white">
+        <Contact2 size="18"/>
+        <span>Usuarios</span>
+      </NuxtLink>
     </div>
 
   </aside>
 </template>
 
 <script setup lang="ts">
-import { Tag, PackageSearch } from 'lucide-vue-next'
+import { Tag, PackageSearch, Contact2 } from 'lucide-vue-next'
 
 </script>

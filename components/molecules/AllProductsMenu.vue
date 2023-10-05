@@ -1,12 +1,14 @@
 <template>
   <div class="w-full bg-white">
-    <Container class="flex gap-2 bg-white ">
-      <div class="flex flex-col gap-4 py-6 bg-white">
-        <button @click="selectCategory(index)" v-for="(item, index) in categoryItems" :key="item.name">{{ item.name }}</button>
+    <Container class="flex gap-20 bg-white py-6">
+      <div class="flex flex-col items-start gap-4 bg-white border-r-2 border-red-primary pr-6">
+        <button @click="selectCategory(item.items)" @mouseenter="selectCategory(item.items)" v-for="item in categoryItems" :key="item.name">
+          {{ item.name }}
+        </button>
       </div>
-      <div v-if="showItems" class="grid grid-cols-4 gap-3  ">
-        <button class="m-[30px]" v-for="movel in categoryItems[categorySelecte].items" :key="movel">
-          {{ movel }}
+      <div v-if="showItems" class="flex-1 mx-auto grid grid-cols-4 gap-3 h-10">
+        <button class="text-left" v-for="item in selectedCategory" :key="item">
+          {{ item }}
         </button>
       </div>
     </Container>
@@ -17,13 +19,14 @@
 import { ref } from 'vue';
 import menuItems from "@/models/MenuItems";
 
-const categorySelecte = ref(7);
 const categoryItems = menuItems;
 const showItems = ref(false);
 
-function selectCategory(index: number) {
-  categorySelecte.value = index;
+const selectedCategory = ref<string[]>([]);
+
+function selectCategory(items: string[]) {
+  selectedCategory.value = items;
   showItems.value = true;
-  console.log(categorySelecte.value);
+
 }
 </script>

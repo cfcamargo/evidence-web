@@ -5,7 +5,7 @@
       <button class="relative" @click="toogleTagsList">
         <Tag />
         <span class="rounded-full text-xs bg-red-primary text-white absolute -bottom-1 -right-2 w-5 h-5 flex items-center justify-center">
-          6
+          {{ tagsList.length }}
         </span>
       </button>
     </div>
@@ -21,12 +21,12 @@
       <div class="flex flex-col gap-4">
         <h4 class="font-bold text-xl">Produtos</h4>
         <div>
-          <ul class="w-full">
-            <li class="w-full flex items-center justify-between">
+          <ul class="w-full flex flex-col gap-2">
+            <li class="w-full flex items-center justify-between" v-for="product in productsList" >
               <span>
-                Produto 1
+                {{ product.title }}
               </span>
-              <button class="ml-2">
+              <button class="ml-2" @click="addProductToTagList(product)">
                 <PlusCircle size="20"/>
               </button>
             </li>
@@ -43,54 +43,11 @@ import AdminLayout from "~/layouts/AdminLayout.vue";
 import { Tag, Search, PlusCircle } from 'lucide-vue-next'
 import Product from "~/models/Product";
 
-const listShow = ref(true)
-const tagsList = ref<Product[]>([
-  {
-    id : 1,
-    title : 'Produto 1',
-    description : 'Descrição do produto 1',
-    price : 10,
-    cover : 'https://picsum.photos/200/300',
-    inactive : 0,
-    systemId : 23,
-    clicks: 20,
-    brand : 'Aleatorio',
-    category : 'Casa',
-    created_at : '',
-    quantity : 20,
-    updated_at : ''
-  },
-  {
-    id : 2,
-    title : 'Produto 2',
-    description : 'Descrição do produto 1',
-    price : 10,
-    cover : 'https://picsum.photos/200/300',
-    inactive : 0,
-    systemId : 23,
-    clicks: 20,
-    brand : 'Aleatorio',
-    category : 'Casa',
-    created_at : '',
-    quantity : 20,
-    updated_at : ''
-  },
-  {
-    id : 3,
-    title : 'Produto 3',
-    description : 'Descrição do produto 1',
-    price : 10,
-    cover : 'https://picsum.photos/200/300',
-    inactive : 0,
-    systemId : 23,
-    clicks: 20,
-    brand : 'Aleatorio',
-    category : 'Casa',
-    created_at : '',
-    quantity : 20,
-    updated_at : ''
-  },
-])
+const listShow = ref(false)
+const tagsList = ref<Product[]>([])
+
+const productsList = ref<Product[]>([])
+const meta = ref({})
 
 
 function toogleTagsList(){
@@ -104,5 +61,22 @@ function removeProductTag(product : Product){
     tagsList.value.splice(index, 1)
   }
 }
+
+function addProductToTagList(product : Product){
+    tagsList.value.push(product)
+}
+
+
+async function fetchProducts(){
+  const apiURL = 'http://127.0.0.1:3333'
+  // const response = await fetch(`${apiURL}/products`, { mode: 'no-cors' });
+  const products: any = await $fetch(`${apiURL}/products`).catch((error) => error.data)
+  productsList.value = products.data
+  meta.value = products.meta
+}
+
+onMounted(async() => {
+  await fetchProducts()
+})
 
 </script>
