@@ -1,13 +1,18 @@
 <template>
     <NuxtLink to="/shop/1">
-        <div class="w-full h-[400px] shadow rounded-md overflow-hidden transform hover:scale-105">
-            <div class="w-full h-[300px] bg-gray-primary p-4 flex justify-center items-center" v-if="product.cover">
+        <div class="w-full h-[500px] shadow rounded-md overflow-hidden transform hover:scale-105">
+            <div class="w-full h-[300px] bg-gray-primary p-4 flex justify-center items-center" >
+                <div class="w-full h-full flex justify-center items-center" v-if="!product.cover">
+                  sem imagem
+                </div>
                 <nuxt-img
                     :src="product.cover"
-                    layout="fill"
+                    fit="cover"
+                    class="w-full h-full"
+                    v-else
                 />
             </div>
-            <div class="h-[100px] w-full px-4 flex flex-col justify-center py-2">
+            <div class="h-[200px] w-full px-4 flex flex-col justify-center py-2">
                 <h4 class="font-semibold text-lg text-red-primary">{{ product.title }}</h4>
                 <p class="text-xs">{{ product.brand }}</p>
                 <div class="flex items-center mt-2 justify-between">
@@ -31,6 +36,7 @@ const { product } = defineProps<{
 
 
 function transformToMoney(value: number){
+    console.log(value)
     return value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
 }
 
