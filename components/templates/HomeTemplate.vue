@@ -29,7 +29,10 @@
 
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import Product from 'models/Product';
+import Product from '@/models/Product';
+import { useProductsStore } from '@/store/products'
+
+const productStore = useProductsStore()
 
 const products: Product[] = [
   {
@@ -45,5 +48,14 @@ const products: Product[] = [
     systemId : 1,
   }
 ]
+
+async function getProducts() {
+  const products2 = await $fetch(`${import.meta.env.VITE_API_URL}/products`)
+  productStore.setProducts(products2)
+}
+
+onMounted(() => {
+  getProducts()
+})
 
 </script>
