@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <Banner />
-    <ProductsCardSlider :products="products" title="Itens mais buscados"/>
+    <!-- <ProductsCardSlider :products="productsList" title="Itens mais buscados"/> -->
     <Container class="bg-gray-primary mb-20 pb-4">
       <div class="w-full flex bg-gray-primary p-4 rounded pb-10">
         <div class="w-1/3">
@@ -22,7 +22,7 @@
       </div>
       <p class="px-4 text-red-primary italic text-lg">Oferecemos uma ampla gama de sofás para todos os gostos e estilos. De designs descolados a opções mais sofisticadas, temos o modelo perfeito esperando por você.</p>
     </Container>
-    <ShopList :total-per-page="12"/>
+    <ShopList :total-per-page="12" :products="productsList" :loading="loading"/>
     <HomeContactForm class="mt-40"/>
   </AppLayout>
 </template>
@@ -34,28 +34,21 @@ import { useProductsStore } from '@/store/products'
 
 const productStore = useProductsStore()
 
-const products: Product[] = [
-  {
-    brand : "",
-    category : "",
-    cover : "",
-    description : "",
-    id: 1,
-    name : "",
-    price : 0,
-    quantity : 0,
-    rating : 0,
-    systemId : 1,
-  }
-]
+const loading = ref(true)
 
 async function getProducts() {
-  const products2 = await $fetch(`${import.meta.env.VITE_API_URL}/products`)
-  productStore.setProducts(products2)
+  const products: any  = await $fetch(`${import.meta.env.VITE_API_URL}/products`)
+  productStore.setProducts(products)
+  loading.value = false
 }
 
-onMounted(() => {
-  getProducts()
+const productsList = computed(() => productStore.products.data)
+
+onMounted(async() => {
+  await getProducts()
 })
+
+
+
 
 </script>

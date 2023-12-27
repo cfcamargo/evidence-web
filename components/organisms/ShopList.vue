@@ -14,10 +14,10 @@
             </div>
 
             <Container>
-                <div class="flex flex-col gap-4 justify-center items-center">
+                <div class="flex flex-col gap-4 justify-center items-center" v-if="!props.loading">
                     <div class="w-full grid grid-cols-4 gap-8">
-                        <div v-for="product in props.totalPerPage" :key="product">
-                            <ProductCard product="product"/>
+                        <div v-for="product in props.products" :key="product.id">
+                            <ProductCard :product="product"/>
                         </div>
                     </div>
                     <div class="py-10">
@@ -41,18 +41,29 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
-    totalPerPage: number
-}>(), {
-    totalPerPage: 20
-})
+import Product from '@/models/Product';
 
+const props = defineProps({
+    products: {
+        type: Array as PropType<Product[]>,
+        required: true
+    },
+    loading: {
+        type: Boolean,
+        required: true
+    },
+})
 const current = ref(1)
 
 function changePage(page: number){
     console.log(page)
     current.value = page
 }
+
+onMounted(() => {
+    console.log(props.loading)
+    console.log(props.products)
+})
 
 
 

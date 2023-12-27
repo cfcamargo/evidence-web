@@ -1,12 +1,15 @@
 export default interface Product {
     id: number;
-    systemId: number;
-    name: string;
-    price: number;
-    cover: string;
-    description: string;
-    category: string;
-    quantity: number;
     brand: string;
-    rating: number;
+    category: string;
+    clicks : number;
+    cover: string;
+    created_at : string;
+    descroption : string;
+    inactive : number;
+    price : number;
+    quantity : number;
+    system_id: number;
+    title: string;
+    updated_at: string;
 }
