@@ -14,7 +14,10 @@
             </div>
 
             <Container>
-                <div class="flex flex-col gap-4 justify-center items-center" v-if="!props.loading">
+                <div v-if="productStore.getLoading">
+                    <Loading />
+                </div>
+                <div class="flex flex-col gap-4 justify-center items-center" v-else>
                     <div class="w-full grid grid-cols-4 gap-8">
                         <div v-for="product in props.products" :key="product.id">
                             <ProductCard :product="product"/>
@@ -42,32 +45,24 @@
 
 <script setup lang="ts">
 import Product from '@/models/Product';
+import { useProductsStore } from '@/store/products'
+
+const productStore = useProductsStore()
+
+const emits = defineEmits(['getProductsByPage'])
 
 const props = defineProps({
     products: {
         type: Array as PropType<Product[]>,
-        required: true
-    },
-    loading: {
-        type: Boolean,
-        required: true
+        required: false
     },
 })
 const current = ref(1)
 
 function changePage(page: number){
-    console.log(page)
     current.value = page
+    emits('getProductsByPage',page)
 }
-
-onMounted(() => {
-    console.log(props.loading)
-    console.log(props.products)
-})
-
-
-
-
 
 
 </script>

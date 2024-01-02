@@ -22,7 +22,7 @@
       </div>
       <p class="px-4 text-red-primary italic text-lg">Oferecemos uma ampla gama de sofás para todos os gostos e estilos. De designs descolados a opções mais sofisticadas, temos o modelo perfeito esperando por você.</p>
     </Container>
-    <ShopList :total-per-page="12" :products="productsList" :loading="loading"/>
+    <ShopList :total-per-page="12" :products="productsList" @getProductsByPage="getProducts($event)"/>
     <HomeContactForm class="mt-40"/>
   </AppLayout>
 </template>
@@ -36,10 +36,12 @@ const productStore = useProductsStore()
 
 const loading = ref(true)
 
-async function getProducts() {
-  const products: any  = await $fetch(`${import.meta.env.VITE_API_URL}/products`)
+async function getProducts(page?:number) {
+  let url:string = page ?`${import.meta.env.VITE_API_URL}/products?page=${page}`:`${import.meta.env.VITE_API_URL}/products`
+  productStore.setLoading(true)
+  const products: any  = await $fetch(url)
   productStore.setProducts(products)
-  loading.value = false
+  productStore.setLoading(false)
 }
 
 const productsList = computed(() => productStore.products.data)

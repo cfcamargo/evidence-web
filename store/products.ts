@@ -8,16 +8,23 @@ interface ProductsData {
 
 export const useProductsStore = defineStore('products', {
     state: () => ({
-        products : {} as ProductsData
+        products : {} as ProductsData,
+        loading : false
     }),
     getters: {
         getProducts(): ProductsData {
             return this.products
+        },
+        getLoading(): boolean {
+            return this.loading
         }
     },
     actions: {
         setProducts(products: ProductsData) {
             this.products = products
         },
+        setLoading(loading: boolean) {
+            this.loading = loading
+        }
     }
 })

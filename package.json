@@ -22,6 +22,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@quasar/extras": "^1.16.5",
     "animate.css": "^4.1.1",
+    "lottie-web": "^5.12.2",
     "lucide-vue-next": "^0.268.0",
     "nuxt-swiper": "^1.2.0",
     "pinia": "^2.1.7",
