@@ -1,20 +1,23 @@
 import { defineStore } from 'pinia'
 import Product from '~/models/Product'
+import ProductsData from '@/models/ProductsData'
 
-interface ProductsData {
-    meta : {},
-    data : []
-}
 
 export const useProductsStore = defineStore('products', {
     state: () => ({
         products : {} as ProductsData,
+        mostProducts : [] as Product[],
         loading : false
     }),
     getters: {
         getProducts(): ProductsData {
             return this.products
         },
+
+        getMostProducts(): Product[] {
+            return this.mostProducts
+        },
+
         getLoading(): boolean {
             return this.loading
         }
@@ -23,6 +26,10 @@ export const useProductsStore = defineStore('products', {
         setProducts(products: ProductsData) {
             this.products = products
         },
+        setMostProducts(products: Product[]) {
+            this.mostProducts = products
+        },
+
         setLoading(loading: boolean) {
             this.loading = loading
         }

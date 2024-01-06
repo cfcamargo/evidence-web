@@ -15,9 +15,9 @@
                     }"
                     class="w-full"
                 >
-                    <SwiperSlide v-for="product in 10" :key="product">
+                    <SwiperSlide v-for="product in products" :key="product.id">
                         <div class="w-[90%] mx-auto p-2">
-                            <ProductCard />
+                            <ProductCard :product="product"/>
                         </div>
                     </SwiperSlide>
                 </Swiper>
@@ -29,6 +29,9 @@
 
 <script setup lang="ts">
 import Product from '@/models/Product'
+import { useProductsStore } from '~/store/products';
+
+const productStore = useProductsStore()
 
 const props = defineProps<{
     products: Product[],
@@ -40,5 +43,6 @@ const { products } = props
 onMounted(() => {
     console.log(products)
 })
+
 
 </script>

@@ -1,7 +1,10 @@
 <template>
   <AppLayout>
     <Banner />
-    <!-- <ProductsCardSlider :products="productsList" title="Itens mais buscados"/> -->
+    <div v-if="productStore.getLoading">
+        <Loading />
+    </div>
+    <ProductsCardSlider :products="mostProductsList" title="Itens mais buscados" v-else/>
     <Container class="bg-gray-primary mb-20 pb-4">
       <div class="w-full flex bg-gray-primary p-4 rounded pb-10">
         <div class="w-1/3">
@@ -29,8 +32,9 @@
 
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import Product from '@/models/Product';
 import { useProductsStore } from '@/store/products'
+import Product from '~/models/Product';
+import ProductsData from '~/models/ProductsData';
 
 const productStore = useProductsStore()
 
@@ -39,12 +43,15 @@ const loading = ref(true)
 async function getProducts(page?:number) {
   let url:string = page ?`${import.meta.env.VITE_API_URL}/products?page=${page}`:`${import.meta.env.VITE_API_URL}/products`
   productStore.setLoading(true)
-  const products: any  = await $fetch(url)
+  const products: ProductsData  = await $fetch(url)
+  const mostProducts: Product [] = await $fetch(`${import.meta.env.VITE_API_URL}/products/most-visited`)
   productStore.setProducts(products)
+  productStore.setMostProducts(mostProducts)
   productStore.setLoading(false)
 }
 
 const productsList = computed(() => productStore.products.data)
+const mostProductsList = computed(() => productStore.mostProducts)
 
 onMounted(async() => {
   await getProducts()
