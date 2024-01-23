@@ -11,4 +11,7 @@ export default defineNuxtConfig({
     },
   },
   modules:["nuxt-swiper", '@nuxt/image', 'nuxt-quasar-ui', '@pinia/nuxt'],
+  plugins: [
+    '@/plugins/click-outside.ts'
+  ],
 })

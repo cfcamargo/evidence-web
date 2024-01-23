@@ -54,7 +54,7 @@ const emits = defineEmits(['getProductsByPage'])
 const props = defineProps({
     products: {
         type: Array as PropType<Product[]>,
-        required: false
+        required: true
     },
 })
 const current = ref(1)

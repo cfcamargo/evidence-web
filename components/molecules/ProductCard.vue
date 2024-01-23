@@ -1,5 +1,5 @@
 <template>
-    <NuxtLink to="/shop/1">
+    <NuxtLink :to="url">
         <div class="w-full h-[500px] shadow rounded-md overflow-hidden transform hover:scale-105">
             <div class="w-full h-[300px] bg-gray-primary p-4 flex justify-center items-center" >
                 <div class="w-full h-full flex justify-center items-center" v-if="!product.cover">
@@ -32,6 +32,10 @@ import Product from '@/models/Product';
 const { product } = defineProps<{
     product: Product
 }>()
+
+const url = computed(() => {
+    return '/shop/' + product.system_id
+})
 
 
 function transformToMoney(value: number){
