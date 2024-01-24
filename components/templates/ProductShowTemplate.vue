@@ -9,6 +9,10 @@
                 />
             </div>
 
+            <div v-else class="w-[80%] object-cover"> 
+                <EmptyImage class="h-full w-full" />
+            </div>
+
             <div class="w-full h-full py-2 flex flex-col gap-10">
                 <div>
                     <h4 class="font-bold text-2xl text-red-primary leading-relaxed">{{ product?.title }}</h4>
@@ -37,7 +41,9 @@
             </div>
 
         </div>
-        <!-- <ProductsCardSlider :products="products" title="Produtos Relacionados"/> -->
+        <div v-if="!loading">
+            <ProductsCardSlider :products="store.getRelationatedProducts" title="Produtos Relacionados" />
+        </div>
     </Container>
 
 
@@ -58,5 +64,17 @@ const { product } = props
 function transformToMoney(value: number){
     return value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
 }
+
+const loading = ref(true)
+
+async function loadRelationatedProducts(){
+    const products: any = await $fetch(`${import.meta.env.VITE_API_URL}/products?category=${product?.category}`)
+    store.setRelationatedProducts(products)
+    loading.value = false
+}
+
+onMounted(async() => {
+    await loadRelationatedProducts()
+})
 
 </script>

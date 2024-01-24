@@ -1,10 +1,6 @@
 import { defineStore } from 'pinia'
-<<<<<<< HEAD
 import Product from '~/models/Product'
 import ProductsData from '@/models/ProductsData'
-=======
-import Product from '@/models/Product'
->>>>>>> 08987fa (feat: adicionando banner)
 
 
 interface filterProps {
@@ -16,6 +12,7 @@ export const useProductsStore = defineStore('products', {
     state: () => ({
         products : {} as ProductsData,
         mostProducts : [] as Product[],
+        relationatedProducts : {} as ProductsData ,
         loading : false,
         filter: {} as filterProps
     }),
@@ -26,6 +23,10 @@ export const useProductsStore = defineStore('products', {
 
         getMostProducts(): Product[] {
             return this.mostProducts
+        },
+
+        getRelationatedProducts(): Product[]{
+            return this.relationatedProducts.data
         },
 
         getLoading(): boolean {
@@ -41,6 +42,10 @@ export const useProductsStore = defineStore('products', {
         },
         setMostProducts(products: Product[]) {
             this.mostProducts = products
+        },
+
+        setRelationatedProducts(products: ProductsData) {
+            this.relationatedProducts = products
         },
 
         setLoading(loading: boolean) {
