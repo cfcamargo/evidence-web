@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-screen fixed top-0 left-0 right-0 bottom-0 bg-black/80 z-50 flex justify-center items-center">
+    <div class="w-full h-screen fixed top-0 left-0 right-0 bottom-0 bg-black/80 z-50 flex justify-center items-center" v-if="props.open">
         <div class="bg-white p-8">
             <div>
                 <h2 class="text-2xl font-bold mb-4">Editar Produto</h2>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="w-full" v-if="form.cover">
                     <div>
-                        <h4>Imagens</h4>
+                        <h4 class="text-xl mt-4 py-2">Imagens</h4>
                     </div>
                     <div v-if="form.cover">
                         <img :src="form.cover" alt="" class="w-[80px]">
@@ -73,6 +73,18 @@ const emits = defineEmits(['cancelEditProduct'])
 const inactive = ref(0)
 
 
+const props = defineProps({
+    product: {
+        type: Object as PropType<Product>,
+        required: true
+    },
+    open: {
+        type: Boolean,
+        required: true
+    }
+})
+
+
 const form = ref({
     id: 0,
     brand: '',
@@ -88,19 +100,7 @@ const form = ref({
     title: '',
 })
 
-
-const props = defineProps({
-    product: {
-        type: Object as PropType<Product>,
-        required: true
-    },
-    open: {
-        type: Boolean,
-        required: true
-    }
-})
-
-onMounted(() => {
+function updateForm(){
     form.value.id = props.product.system_id
     form.value.brand = props.product.brand
     form.value.category = props.product.category
@@ -111,7 +111,7 @@ onMounted(() => {
     form.value.price = props.product.price
     form.value.quantity = props.product.quantity
     form.value.title = props.product.title
-})
+}
 
 function clearForm(){
     form.value = {
@@ -131,15 +131,22 @@ function clearForm(){
     inactive.value = 0
 }
 
-
 function cancelEditProduct(){
-    clearForm()
     emits('cancelEditProduct')
+    clearForm()
 }
 
 async function submit(){
     form.value.inactive = inactive.value
     console.log(form.value)
 }
+
+watchEffect(() => {
+    if (props.open) {
+        updateForm();
+    }
+});
+
+
 
 </script>

@@ -27,7 +27,7 @@
                         <td class="border-l px-2 py-3 overflow-ellipsis">{{ product.quantity }}</td>
                         <td class="border-l px-2 py-3">{{ product.inactive === 0 ? 'Nao' : 'Sim' }}</td>
                         <td class="border-x justify-center px-2 py-3 flex items-center gap-2">
-                            <button>
+                            <button @click="editProduct(product)">
                                 <Pencil color="gray"/>
                             </button>
                             <button>
@@ -55,7 +55,7 @@
         </div>
 
 
-        <ModalEdit :product="listProducts[0]" :open="true" v-if="!loading"/>
+        <ModalEdit :product="productToEdit" :open="modalEditShow" v-if="!loading && productToEdit" @cancelEditProduct="cancelEditProduct"/>
     </div>
 </template>
 
@@ -70,6 +70,9 @@ const { loading } = defineProps({
     loading: Boolean
 }) 
 
+const productToEdit = ref<Product | null>(null)
+const modalEditShow = ref(true)
+
 const current = ref(1)
 
 function changePage(page: number){
@@ -77,11 +80,19 @@ function changePage(page: number){
     emits('getProductsByPage',page)
 }
 
+function editProduct(product: Product){
+    productToEdit.value = product
+    modalEditShow.value = true
+}
+
 const productsStore = useProductsStore();
 
 const listProducts = computed((): Product[] => productsStore.products.data);
 
-
+function cancelEditProduct(){
+    productToEdit.value = null
+    modalEditShow.value = false
+}
 
 
 </script>
