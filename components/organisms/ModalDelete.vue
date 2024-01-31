@@ -54,10 +54,6 @@ function closeDeleteProduct(){
 
 async function confirmDeleteProduct(){
     loading.value = true
-    setTimeout(() => {
-        loading.value = false
-    }, 3000);
-
     await $fetch(`${import.meta.env.VITE_API_URL}/products/${props.product.system_id}`, {
         method: 'DELETE',
     })
