@@ -1,52 +1,47 @@
 <template>
     <div class="w-full h-screen fixed top-0 left-0 right-0 bottom-0 bg-black/80 z-50 flex justify-center items-center" v-if="props.open">
-        <div class="bg-white p-8">
+        <div class="bg-white p-8 shadow-md rounded-lg">
             <div>
                 <h2 class="text-2xl font-bold mb-4">Editar Produto</h2>
             </div>
 
             <form @submit.prevent="submit">
                 <div class="flex gap-4">
-                    <div class="flex items-center gap-2 px-2 py-1 border border-gray-600 rounded cursor-not-allowed">
-                        <label class="font-bold" for="id">ID:</label>
-                        <input class="outline-none flex-1" id="id" type="number" v-model="form.id" disabled>
+                    <div class="flex items-center gap-2 px-2 py-1 cursor-not-allowed">
+                        <q-input filled v-model="form.id" label="ID" stack-label :dense="false" :disable="true"/>
                     </div>
-                    <div class="flex items-center gap-2 px-2 py-1 border border-gray-600 rounded">
-                        <label class="font-bold" for="brand">Marca</label>
-                        <input class="outline-none flex-1" id="brand" type="text" v-model="form.brand">
+                    <div class="flex items-center gap-2 px-2 py-1">
+                        <q-input filled v-model="form.brand" label="Marca" stack-label :dense="false"/>
                     </div>
-                    <div class="flex items-center gap-2 px-2 py-1 border border-gray-600 rounded">
-                        <label class="font-bold" for="category">Categoria</label>
-                        <input class="outline-none flex-1" id="category" type="text" v-model="form.category">
+                    <div class="flex items-center gap-2 px-2 py-1">
+                        <q-input filled v-model="form.category" label="Categoria" stack-label :dense="false"/>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <div class="flex items-center gap-2 px-2 py-1 border border-gray-600 rounded">
-                        <label class="font-bold" for="title">Nome:</label>
-                        <input id="title" type="text" class="flex-1 outline-none" v-model="form.title">
+                <div class="mt-4 w-full">
+                    <div class="flex items-center gap-2 px-2 py-1 w-full">
+                        <q-input filled v-model="form.title" label="Nome" stack-label :dense="false" class="w-full"/>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <div class="flex items-center gap-2 px-2 py-1 border border-gray-600 rounded">
-                        <label class="font-bold" for="description">Descricao:</label>
-                        <textarea id="description" type="text" class="w-full outline-none" v-model="form.descroption" />
+                <div class="mt-4 w-full">
+                    <div class="flex items-center gap-2 px-2 py-1 w-full">
+                        <q-input
+                            v-model="form.description"
+                            filled
+                            type="textarea"
+                            label="Descricao"
+                            class="w-full"
+                        />
                     </div>
                 </div>
                 <div class="mt-4 flex gap-4">
-                    <div class="flex items-center gap-2 px-2 py-1 border border-gray-600 rounded">
-                        <label class="font-bold" for="price">Preco:</label>
-                        <input id="price" type="number" class="flex-1 outline-none" v-model="form.price" />
+                    <div class="flex items-center gap-2 px-2 py-1">
+                        <q-input filled v-model="form.price" label="Preco" type="number" stack-label :dense="false"/>
                     </div>
-                    <div class="flex items-center gap-2 px-2 py-1 border border-gray-600 rounded">
-                        <label class="font-bold" for="quantity">Quantidade:</label>
-                        <input id="quantity" type="text" class="flex-1 outline-none" v-model="form.quantity" />
+                    <div class="flex items-center gap-2 px-2 py-1">
+                        <q-input filled v-model="form.quantity" label="Estoque" type="number" stack-label :dense="false"/>
                     </div>
-                    <div class="flex items-center gap-2 px-2 py-1 border border-gray-600 rounded flex-1">
-                        <label class="font-bold" for="active">Inativo:</label>
-                        <select name="active" v-model="inactive" id="active" class="flex-1 bg-none">
-                            <option class="bg-white" :value="1">Sim</option>
-                            <option class="bg-white" :value="0">Nao</option>
-                        </select>
+                    <div class="flex items-center gap-2 px-2 py-1 flex-1">
+                        <q-select filled v-model="inactive" :options="['Sim', 'Não']" label="Inativo" class="w-full"/>
                     </div>
                 </div>
                 <div class="w-full" v-if="form.cover">
@@ -58,8 +53,8 @@
                     </div>
                 </div>
                 <div class="w-full flex justify-end gap-4 py-4">
-                    <button class="px-2 py-1 bg-gray-300 rounded text-gray-600 hover:brightness-90" type="button" @click="cancelEditProduct">CANCELAR</button>
-                    <button class="px-6 py-1 bg-red-primary text-white rounded hover:brightness-90" type="submit">SALVAR</button>
+                    <q-btn color="white" text-color="black" label="Cancelar" @click="cancelEditProduct"/>
+                    <q-btn :loading="loading" color="red-primary" type="submit" label="Salvar" />
                 </div>
             </form>
         </div>
@@ -67,10 +62,11 @@
 </template>
 
 <script setup lang="ts">
+import { Loader2 } from 'lucide-vue-next'
 import Product from '~/models/Product';
-const emits = defineEmits(['cancelEditProduct'])
+const emits = defineEmits(['cancelEditProduct','getProducts'])
 
-const inactive = ref(0)
+const inactive = ref<'Sim' | 'Não'>('Não')
 
 
 const props = defineProps({
@@ -84,15 +80,16 @@ const props = defineProps({
     }
 })
 
+const loading = ref(false)
+
 
 const form = ref({
     id: 0,
     brand: '',
     category: '',
-    clicks : '',
     cover: '',
     created_at : '',
-    descroption : '',
+    description : '',
     inactive : 0,
     price : 0,
     quantity : 0,
@@ -106,11 +103,13 @@ function updateForm(){
     form.value.category = props.product.category
     form.value.cover = props.product.cover
     form.value.created_at = props.product.created_at
-    form.value.descroption = props.product.descroption
+    form.value.description = props.product.description
     form.value.inactive = props.product.inactive
     form.value.price = props.product.price
     form.value.quantity = props.product.quantity
     form.value.title = props.product.title
+
+    props.product.inactive === 0 ? inactive.value = 'Não' : inactive.value = 'Sim'
 }
 
 function clearForm(){
@@ -118,17 +117,16 @@ function clearForm(){
         id: 0,
         brand: '',
         category: '',
-        clicks : '',
         cover: '',
         created_at : '',
-        descroption : '',
+        description : '',
         inactive : 0,
         price : 0,
         quantity : 0,
         system_id: null,
         title: '',
     }
-    inactive.value = 0
+    inactive.value = 'Não'
 }
 
 function cancelEditProduct(){
@@ -137,8 +135,18 @@ function cancelEditProduct(){
 }
 
 async function submit(){
-    form.value.inactive = inactive.value
-    console.log(form.value)
+    loading.value = true
+    form.value.inactive = inactive.value === 'Sim' ? 1 : 0  
+    await $fetch(`${import.meta.env.VITE_API_URL}/products/${props.product.system_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(form.value)
+    })
+    loading.value = false
+    cancelEditProduct()
+    emits('getProducts')
 }
 
 watchEffect(() => {

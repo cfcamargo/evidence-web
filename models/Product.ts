@@ -5,7 +5,7 @@ export default interface Product {
     clicks : number;
     cover: string;
     created_at : string;
-    descroption : string;
+    description : string;
     inactive : number;
     price : number;
     quantity : number;

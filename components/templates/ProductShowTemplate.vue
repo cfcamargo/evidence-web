@@ -20,7 +20,7 @@
                 </div>
 
                 <div>
-                    <p>{{ product?.descroption }}</p>
+                    <p>{{ product?.description }}</p>
                 </div>
 
                 <span class="text-yellow-600 font-bold" v-if="product?.quantity === 0">

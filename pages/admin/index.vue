@@ -3,8 +3,11 @@
         <div>
             <Sidebar />
         </div>
-        <div class="w-full max-w-[1200px] mx-auto">
-            <AdminProducts v-if="adminStore.component === 'products'" :loading="loading" @getProductsByPage="getProducts($event)"/>
+        <div class="w-full max-w-[1200px] mx-auto h-screen grid place-content-center" v-if="loading">
+            <Loading class="w-[200px]"/>
+        </div>
+        <div class="w-full max-w-[1200px] mx-auto" v-else>
+            <AdminProducts v-if="adminStore.component === 'products'" :loading="loading" @getProductsByPage="getProducts($event)" @getProducts="getProducts"/>
         </div>
     </div>
 </template>
@@ -24,7 +27,7 @@ async function getProducts(page?:number) {
     loading.value = true
     const products: ProductsData  = await $fetch(url)
     productStore.setProducts(products)
-    loading.value = false
+    loading.value = false 
 }
 
 onMounted(async() => {
